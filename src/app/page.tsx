@@ -1,17 +1,26 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Card } from "@/components/ui/card";
+import { Accordion } from "@/components/ui/accordion";
+import { ArrowRight, Sparkles, Rocket, Globe } from "lucide-react";
 
 const principles = [
   {
+    icon: <Sparkles className="h-6 w-6 text-sky-500" />,
     title: "Fund access",
     body: "Donations pool into annual scholarships covering one full Claude Code or Codex Max plan.",
   },
   {
+    icon: <Rocket className="h-6 w-6 text-indigo-500" />,
     title: "Back builders",
     body: "Applicants share what they’re building and why it matters. We prioritize clear execution intent.",
   },
   {
+    icon: <Globe className="h-6 w-6 text-teal-500" />,
     title: "Show outcomes",
     body: "Recipients publish progress so donors can see what their contribution helped bring to life.",
   },
@@ -23,121 +32,205 @@ const stats = [
   ["Global", "Any age, any country"],
 ];
 
+const faqItems = [
+  { id: "who", question: "Who can apply?", answer: "Any age, any country, as long as you're actively building and shipping." },
+  { id: "what", question: "What does a scholarship cover?", answer: "One annual Claude Code or Codex Max plan ($2,400/year value)." },
+  { id: "both", question: "Can one person get both plans?", answer: "No. One recipient gets one plan to ensure we can support as many builders as possible." },
+];
+
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#06070b] text-white">
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#06070b]/70 backdrop-blur-xl">
+    <div className="relative min-h-screen bg-[#fcfcfd] selection:bg-sky-200/50 selection:text-sky-900 overflow-x-hidden">
+      {/* Background Layer */}
+      <div className="fixed inset-0 z-0 pointer-events-none sky-mesh-bg" />
+      
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 glass-panel-darker border-b-0">
         <Container className="flex h-16 items-center justify-between">
-          <div className="text-sm font-semibold tracking-[0.18em] text-cyan-200">FORGE FUND</div>
-          <nav className="hidden gap-8 text-sm text-zinc-300 md:flex">
-            <a href="#mission" className="hover:text-white transition">Mission</a>
-            <a href="#how" className="hover:text-white transition">How it works</a>
-            <a href="#faq" className="hover:text-white transition">FAQ</a>
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex items-center gap-2"
+          >
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-sky-400 to-indigo-500 text-white shadow-sm">
+              <Rocket className="h-4 w-4" />
+            </div>
+            <span className="text-sm font-bold tracking-[0.15em] text-slate-800 uppercase">
+              Forge Fund
+            </span>
+          </motion.div>
+          
+          <nav className="hideen md:flex items-center gap-8">
+            <motion.a 
+              initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+              href="#mission" className="text-sm font-medium text-slate-600 hover:text-sky-600 transition-colors"
+            >
+              Mission
+            </motion.a>
+            <motion.a 
+              initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+              href="#how" className="text-sm font-medium text-slate-600 hover:text-sky-600 transition-colors"
+            >
+              How it works
+            </motion.a>
+            <motion.a 
+              initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+              href="#faq" className="text-sm font-medium text-slate-600 hover:text-sky-600 transition-colors"
+            >
+              FAQ
+            </motion.a>
           </nav>
-          <Button href="/donate" variant="secondary" className="px-4 py-2">
-            Donate
-          </Button>
+          
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
+            <Button href="/donate" variant="secondary" size="sm" className="hidden sm:inline-flex">
+              Donate
+            </Button>
+          </motion.div>
         </Container>
       </header>
 
-      <main>
-        <section className="relative overflow-hidden border-b border-white/10 py-20 md:py-28">
+      <main className="relative z-10 pt-16">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden pt-8 pb-32 md:pt-16 md:pb-40">
           <div className="hero-glow" />
           <Container className="relative z-10">
-            <p className="inline-flex rounded-full border border-cyan-200/30 bg-cyan-300/10 px-3 py-1 text-[11px] uppercase tracking-[0.22em] text-cyan-100">
-              ship the thing
-            </p>
-            <h1 className="mt-6 max-w-4xl text-balance text-5xl font-semibold leading-[0.98] tracking-tight md:text-7xl">
-              Scholarships for builders who actually ship.
-            </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-zinc-300 md:text-xl">
-              Forge Fund raises money to remove tooling cost barriers. We fund annual Claude Code or Codex Max plans for high-conviction builders.
-            </p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="flex flex-col items-center text-center"
+            >
+              <h1 className="max-w-4xl text-balance text-6xl font-bold leading-[1.05] tracking-tight text-slate-900 md:text-8xl">
+                Scholarships for builders who <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-indigo-500">actually ship.</span>
+              </h1>
+              
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-slate-600 md:text-xl md:leading-relaxed">
+                Forge Fund removes tooling cost barriers. We fund annual Claude Code or Codex Max plans for high-conviction builders ready to turn potential into product.
+              </p>
 
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Button href="/donate">Donate to Forge Fund</Button>
-              <Button href="/apply" variant="secondary">
-                Apply for Scholarship
-              </Button>
-            </div>
+              <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
+                <Button href="/apply" size="lg" className="w-full sm:w-auto gap-2 group">
+                  Apply for Scholarship
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+                <Button href="/donate" variant="secondary" size="lg" className="w-full sm:w-auto">
+                  Donate to Fund
+                </Button>
+              </div>
+            </motion.div>
 
-            <div className="mt-14 grid gap-3 md:grid-cols-3">
-              {stats.map(([value, label]) => (
-                <article key={label} className="rounded-2xl border border-white/12 bg-white/5 p-5 transition duration-300 hover:bg-white/[0.08] hover:-translate-y-0.5">
-                  <p className="text-3xl font-semibold tracking-tight">{value}</p>
-                  <p className="mt-1 text-sm text-zinc-300">{label}</p>
-                </article>
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="mt-20 grid gap-4 sm:grid-cols-3 max-w-4xl mx-auto"
+            >
+              {stats.map(([value, label], i) => (
+                <Card key={label} delay={0.4 + (i * 0.1)} className="text-center py-8">
+                  <p className="text-4xl font-bold tracking-tight text-slate-900">{value}</p>
+                  <p className="mt-2 text-sm font-medium text-slate-500 uppercase tracking-widest">{label}</p>
+                </Card>
               ))}
-            </div>
+            </motion.div>
           </Container>
         </section>
 
-        <section id="mission" className="border-b border-white/10 py-16 md:py-24">
+        {/* Mission Section */}
+        <section id="mission" className="py-24 bg-white/40 border-y border-slate-200/50">
           <Container>
             <SectionHeading
               eyebrow="Mission"
-              title="Forge Fund exists to turn blocked potential into shipped products."
-              subtitle="Great builders get stuck behind subscription cost. We unlock access and channel support toward people ready to build in public."
+              title="Turn blocked potential into shipped products."
+              subtitle="Great builders get stuck behind subscription costs. We unlock access and channel support toward people ready to build in public."
+              className="text-center mx-auto"
             />
-            <div className="mt-12 grid gap-4 md:grid-cols-3">
-              {principles.map((item) => (
-                <article key={item.title} className="rounded-2xl border border-white/10 bg-zinc-900/50 p-6 transition duration-300 hover:border-cyan-200/35 hover:bg-zinc-900/80">
-                  <h3 className="text-xl font-semibold tracking-tight">{item.title}</h3>
-                  <p className="mt-3 leading-7 text-zinc-300">{item.body}</p>
-                </article>
+            
+            <div className="mt-16 grid gap-6 md:grid-cols-3">
+              {principles.map((item, i) => (
+                <Card key={item.title} delay={0.1 * i} className="group">
+                  <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-slate-50 ring-1 ring-slate-100 group-hover:scale-110 transition-transform duration-300">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-bold tracking-tight text-slate-900">{item.title}</h3>
+                  <p className="mt-3 leading-relaxed text-slate-600">{item.body}</p>
+                </Card>
               ))}
             </div>
           </Container>
         </section>
 
-        <section id="how" className="border-b border-white/10 py-16 md:py-24">
+        {/* How it Works Section */}
+        <section id="how" className="py-24">
           <Container>
-            <SectionHeading
-              eyebrow="How it works"
-              title="Simple funding loop, transparent impact."
-              subtitle="Designed for clarity and conversion—donors know where money goes, recipients know what’s expected."
-            />
-
-            <div className="mt-12 grid gap-4 md:grid-cols-2">
-              {[
-                "Donors contribute any amount to the fund.",
-                "Builders apply with project intent and execution plan.",
-                "Selected recipients receive one annual scholarship.",
-                "Impact stories show what got shipped.",
-              ].map((step, index) => (
-                <div
-                  key={step}
-                  className="group rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 transition duration-300 hover:border-cyan-200/35"
-                >
-                  <p className="text-sm font-medium uppercase tracking-[0.18em] text-cyan-200/90">Step {index + 1}</p>
-                  <p className="mt-3 text-lg leading-7 text-zinc-200">{step}</p>
+            <div className="grid md:grid-cols-2 gap-16 items-center">
+              <div>
+                <SectionHeading
+                  eyebrow="How it works"
+                  title="Simple funding loop, transparent impact."
+                  subtitle="Designed for clarity and conversion—donors know exactly where money goes, recipients know exactly what’s expected."
+                />
+                
+                <div className="mt-10 flex gap-4">
+                  <Button href="/apply" variant="outline">Start an Application</Button>
                 </div>
-              ))}
+              </div>
+
+              <div className="relative">
+                {/* Connecting line */}
+                <div className="absolute left-6 top-10 bottom-10 w-px bg-gradient-to-b from-sky-200 via-indigo-200 to-transparent hidden md:block" />
+                
+                <div className="space-y-8 map">
+                  {[
+                    "Donors contribute any amount to the combined pool.",
+                    "Builders apply with strong project intent & execution plan.",
+                    "Selected recipients receive one full annual scholarship.",
+                    "Impact stories show donors exactly what got shipped.",
+                  ].map((step, index) => (
+                    <motion.div
+                      key={step}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-50px" }}
+                      transition={{ delay: index * 0.15 }}
+                      className="relative flex gap-6"
+                    >
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-base font-bold text-sky-600 shadow-sm ring-1 ring-slate-200 z-10">
+                        {index + 1}
+                      </div>
+                      <div className="pt-3">
+                        <p className="text-lg font-medium leading-relaxed text-slate-700">{step}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </Container>
         </section>
 
-        <section id="faq" className="py-16 md:py-24">
-          <Container>
-            <SectionHeading eyebrow="FAQ" title="Fast answers" />
-            <div className="mt-10 space-y-4">
-              {[
-                ["Who can apply?", "Any age, any country, as long as you're actively building."],
-                ["What does a scholarship cover?", "One annual Claude Code or Codex Max plan ($2,400/year value)."],
-                ["Can one person get both plans?", "No. One recipient gets one plan."],
-              ].map(([q, a]) => (
-                <article key={q} className="rounded-2xl border border-white/10 bg-zinc-900/45 p-6">
-                  <h3 className="text-lg font-medium">{q}</h3>
-                  <p className="mt-2 text-zinc-300">{a}</p>
-                </article>
-              ))}
+        {/* FAQ Section */}
+        <section id="faq" className="py-24 bg-white/60 border-t border-slate-200/50">
+          <Container className="max-w-4xl">
+            <div className="text-center mb-16">
+              <SectionHeading eyebrow="FAQ" title="Fast answers" className="mx-auto" />
             </div>
-
-            <div className="mt-12 flex flex-wrap gap-4">
-              <Button href="/donate">Donate</Button>
-              <Button href="/apply" variant="secondary">
-                Apply
-              </Button>
+            <Accordion items={faqItems} />
+          </Container>
+        </section>
+        
+        {/* CTA Footer */}
+        <section className="py-32 relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-sky-500 to-indigo-600 opacity-5" />
+          <Container className="relative text-center max-w-2xl">
+            <h2 className="text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
+              Ready to ship?
+            </h2>
+            <p className="mt-6 text-xl text-slate-600">
+              Join a community of builders turning ideas into reality.
+            </p>
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button href="/apply" size="lg" className="w-full sm:w-auto">Apply Now</Button>
+              <Button href="/donate" variant="outline" size="lg" className="w-full sm:w-auto">Donate</Button>
             </div>
           </Container>
         </section>

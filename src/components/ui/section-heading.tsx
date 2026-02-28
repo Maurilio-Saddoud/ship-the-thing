@@ -1,17 +1,26 @@
+import { cn } from "@/lib/utils";
+
 type SectionHeadingProps = {
   eyebrow: string;
   title: string;
   subtitle?: string;
+  className?: string;
 };
 
-export function SectionHeading({ eyebrow, title, subtitle }: SectionHeadingProps) {
+export function SectionHeading({ eyebrow, title, subtitle, className }: SectionHeadingProps) {
   return (
-    <div className="max-w-3xl">
-      <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-cyan-200/85">{eyebrow}</p>
-      <h2 className="mt-4 text-balance text-3xl font-semibold leading-tight tracking-tight text-white md:text-5xl">
+    <div className={cn("max-w-3xl", className)}>
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">
+        {eyebrow}
+      </p>
+      <h2 className="mt-4 text-balance text-4xl font-semibold leading-[1.1] tracking-tight text-slate-900 md:text-5xl">
         {title}
       </h2>
-      {subtitle ? <p className="mt-5 text-lg leading-8 text-zinc-300">{subtitle}</p> : null}
+      {subtitle && (
+        <p className="mt-6 text-lg leading-relaxed text-slate-600">
+          {subtitle}
+        </p>
+      )}
     </div>
   );
 }
