@@ -14,7 +14,7 @@ const principles = [
   {
     icon: <Sparkles className="h-6 w-6 text-sky-500" />,
     title: "Fund access",
-    body: "Donations pool into annual scholarships covering one full Claude Code or Codex Max plan.",
+    body: "Donations pool into annual scholarships, breaking down the cost barrier for college students, bootstrapped founders, and international builders.",
   },
   {
     icon: <Rocket className="h-6 w-6 text-indigo-500" />,
@@ -32,7 +32,7 @@ const ANNUAL_PLAN_USD = 2400;
 const WINNER_ANNOUNCEMENT_DATE = new Date("2026-07-15T00:00:00");
 
 const faqItems = [
-  { id: "who", question: "Who can apply?", answer: "Any age, any country, as long as you're actively building and shipping." },
+  { id: "who", question: "Who can apply?", answer: "Anyone actively building and shipping. Whether you're a local student, a self-funded entrepreneur, or a builder from an emerging economy, we want to help." },
   { id: "what", question: "What does a scholarship cover?", answer: "One annual Claude Code or Codex Max plan ($2,400/year value)." },
   { id: "both", question: "Can one person get both plans?", answer: "No. One recipient gets one plan to ensure we can support as many builders as possible." },
 ];
@@ -190,7 +190,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="Mission"
               title="Turn blocked potential into shipped products."
-              subtitle="Great builders get stuck behind subscription costs. We unlock access and channel support toward people ready to build in public."
+              subtitle="Brilliance is evenly distributed, but tooling budgets are not. Premium AI subscriptions are a massive barrier for college students, early-stage founders, and international builders alike. We level the playing field for anyone ready to build in public."
               className="text-center mx-auto"
             />
             
